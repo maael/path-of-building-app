@@ -1,0 +1,19 @@
+{
+  "name": "path-of-building-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:maael/path-of-building-app.git",
+  "author": "Matthew Elphick <matt.a.elphy@gmail.com> (https://mael.tech)",
+  "license": "MIT",
+  "scripts": {
+    "sc": "./scripts/run.sh"
+  },
+  "devDependencies": {
+    "@types/isomorphic-fetch": "^0.0.35",
+    "@types/node": "^16.6.1",
+    "isomorphic-fetch": "^3.0.0",
+    "ts-node": "^10.2.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {}
+}
