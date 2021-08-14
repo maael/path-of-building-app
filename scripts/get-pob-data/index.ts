@@ -43,7 +43,7 @@ async function getData () {
   const {content} = await (await fetch(getUrl(versionDir, 'tree.lua', 'blob'), {headers})).json();
   const data = Buffer.from(content, 'base64').toString();
   await fs.writeFile(join(__dirname, 'data.lua'), data);
-  await fs.writeFile(join(__dirname, '..', '..', 'data', 'meta.json'), JSON.stringify({version: version.replace('_', '.'), runAt: (new Date()).toISOString()}));
+  await fs.writeFile(join(__dirname, '..', '..', 'data', 'meta.json'), JSON.stringify({version: version.replace('_', '.')}));
 }
 
 async function luaToJson () {
