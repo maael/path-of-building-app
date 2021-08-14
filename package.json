@@ -6,8 +6,10 @@
   "author": "Matthew Elphick <matt.a.elphy@gmail.com> (https://mael.tech)",
   "license": "MIT",
   "scripts": {
-    "sc": "./scripts/run.sh"
+    "sc": "./scripts/run.sh",
+    "app": "yarn --cwd ./app"
   },
+  "private": "true",
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.35",
     "@types/node": "^16.6.1",
