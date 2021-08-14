@@ -17,6 +17,7 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "tech.mael.path-of-building",
       "supportsTablet": true
     },
     "android": {
