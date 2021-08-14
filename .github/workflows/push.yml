@@ -26,7 +26,7 @@ jobs:
         run: yarn --cwd app prettier
       - name: Lint
         run: yarn --cwd app lint
-  expo-build:
+  expo-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -46,4 +46,5 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - name: Install packages
         run: yarn --cwd app install
-      - run: cd app && expo build:ios
+      - run: cd app && expo doctor
+      - run: cd app && expo publish --release-channel=commit-${{ github.sha }}

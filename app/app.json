@@ -17,10 +17,11 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "tech.mael.path-of-building",
+      "bundleIdentifier": "tech.mael.pathofbuilding",
       "supportsTablet": true
     },
     "android": {
+      "package": "tech.mael.pathofbuilding",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
