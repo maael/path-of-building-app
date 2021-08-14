@@ -2,6 +2,7 @@ import {join} from 'path';
 import {promises as fs} from 'fs';
 import {exec} from 'child_process';
 import fetch from 'isomorphic-fetch';
+import eq from 'fast-deep-equal';
 
 (async () => {
   console.info("🕛\t[get-pob-data][start]");
@@ -42,15 +43,29 @@ async function getData () {
   const {content} = await (await fetch(getUrl(versionDir, 'tree.lua', 'blob'), {headers})).json();
   const data = Buffer.from(content, 'base64').toString();
   await fs.writeFile(join(__dirname, 'data.lua'), data);
+  await fs.writeFile(join(__dirname, '..', '..', 'data', 'meta.json'), JSON.stringify({version: version.replace('_', '.'), runAt: (new Date()).toISOString()}));
 }
 
 async function luaToJson () {
   return new Promise<void>((resolve, reject) => {
-    exec(`lua ${join(__dirname, 'script.lua')} > ${join(__dirname, '..', '..', 'data', 'data.json')}`, (err) => {
+    const oldPath = join(__dirname, '..', '..', 'data', 'data.json');
+    const newPath = join(__dirname, '..', '..', 'data', 'new-data.json');
+    exec(`lua ${join(__dirname, 'script.lua')} > ${newPath}`, async (err) => {
       if (err) {
         console.error('🚨\t[get-pob-data][error]', err);
         reject(err);
         return;
+      }
+      try {
+        const oldData = JSON.parse(await fs.readFile(oldPath, 'utf-8'));
+        const newData = JSON.parse(await fs.readFile(newPath, 'utf-8'));
+        if (!eq(oldData, newData)) {
+          await fs.rename(newData, oldData);
+        }
+      } finally {
+        try {
+          await fs.unlink(newPath);
+        } catch {/* Do nothing */}
       }
       console.info('✅\t[get-pob-data][end]');
       resolve();
