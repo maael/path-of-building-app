@@ -43,13 +43,13 @@ async function getData () {
   const {content} = await (await fetch(getUrl(versionDir, 'tree.lua', 'blob'), {headers})).json();
   const data = Buffer.from(content, 'base64').toString();
   await fs.writeFile(join(__dirname, 'data.lua'), data);
-  await fs.writeFile(join(__dirname, '..', '..', 'data', 'meta.json'), JSON.stringify({version: version.replace('_', '.')}));
+  await fs.writeFile(join(__dirname, '..', '..', 'app', 'data', 'meta.json'), JSON.stringify({version: version.replace('_', '.')}));
 }
 
 async function luaToJson () {
   return new Promise<void>((resolve, reject) => {
-    const oldPath = join(__dirname, '..', '..', 'data', 'data.json');
-    const newPath = join(__dirname, '..', '..', 'data', 'new-data.json');
+    const oldPath = join(__dirname, '..', '..', 'app', 'data', 'data.json');
+    const newPath = join(__dirname, '..', '..', 'app', 'data', 'new-data.json');
     exec(`lua ${join(__dirname, 'script.lua')} > ${newPath}`, async (err) => {
       if (err) {
         console.error('🚨\t[get-pob-data][error]', err);
